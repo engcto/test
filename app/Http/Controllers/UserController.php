@@ -37,6 +37,7 @@ class UserController extends Controller
             'name' => $validated['name'],
             'email' => $validated['email'],
             'password' => Hash::make($validated['password']),
+            'is_active' => true,
         ]);
 
         return redirect()->route('users.index')->with('success', 'User created successfully!');
@@ -67,5 +68,18 @@ class UserController extends Controller
         $user->save();
 
         return redirect()->route('users.index')->with('success', 'User updated successfully!');
+    }
+
+    /**
+     * Toggle the active status of the user.
+     */
+    public function toggleStatus(User $user)
+    {
+        $user->update([
+            'is_active' => !$user->is_active
+        ]);
+
+        $status = $user->is_active ? 'activated' : 'deactivated';
+        return redirect()->route('users.index')->with('success', "User has been {$status} successfully.");
     }
 }

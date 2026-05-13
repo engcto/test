@@ -30,6 +30,7 @@
                     <tr class="bg-slate-700/50">
                         <th class="px-6 py-4 text-sm font-semibold text-slate-300 uppercase tracking-wider">Name</th>
                         <th class="px-6 py-4 text-sm font-semibold text-slate-300 uppercase tracking-wider">Email</th>
+                        <th class="px-6 py-4 text-sm font-semibold text-slate-300 uppercase tracking-wider">Status</th>
                         <th class="px-6 py-4 text-sm font-semibold text-slate-300 uppercase tracking-wider">Joined</th>
                         <th class="px-6 py-4 text-sm font-semibold text-slate-300 uppercase tracking-wider text-right">Actions</th>
                     </tr>
@@ -39,18 +40,32 @@
                         <tr class="hover:bg-slate-700/30 transition">
                             <td class="px-6 py-4 font-medium text-white">{{ $user->name }}</td>
                             <td class="px-6 py-4 text-slate-400">{{ $user->email }}</td>
+                            <td class="px-6 py-4">
+                                @if($user->is_active)
+                                    <span class="px-2 py-1 text-xs font-bold bg-emerald-900/50 text-emerald-400 border border-emerald-500/50 rounded-full">Active</span>
+                                @else
+                                    <span class="px-2 py-1 text-xs font-bold bg-red-900/50 text-red-400 border border-red-500/50 rounded-full">Inactive</span>
+                                @endif
+                            </td>
                             <td class="px-6 py-4 text-slate-500 text-sm">
                                 {{ $user->created_at->format('M d, Y') }}
                             </td>
-                            <td class="px-6 py-4 text-right">
-                                <a href="{{ route('users.edit', $user) }}" class="text-blue-400 hover:text-blue-300 font-medium transition">
+                            <td class="px-6 py-4 text-right flex justify-end items-center space-x-4">
+                                <form action="{{ route('users.toggle', $user) }}" method="POST" class="inline">
+                                    @csrf
+                                    @method('PATCH')
+                                    <button type="submit" class="{{ $user->is_active ? 'text-amber-400 hover:text-amber-300' : 'text-emerald-400 hover:text-emerald-300' }} font-medium transition text-sm">
+                                        {{ $user->is_active ? 'Deactivate' : 'Activate' }}
+                                    </button>
+                                </form>
+                                <a href="{{ route('users.edit', $user) }}" class="text-blue-400 hover:text-blue-300 font-medium transition text-sm">
                                     Edit
                                 </a>
                             </td>
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="4" class="px-6 py-12 text-center text-slate-500 italic">
+                            <td colspan="5" class="px-6 py-12 text-center text-slate-500 italic">
                                 No users found in the database.
                             </td>
                         </tr>
