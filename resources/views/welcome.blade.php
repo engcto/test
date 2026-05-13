@@ -23,7 +23,10 @@
                     Repository: <span class="text-emerald-400 font-mono">engcto/test</span>
                 </p>
 
-                <div class="mb-12">
+                <div class="mb-12 flex justify-center gap-4">
+                    <a href="{{ route('users.index') }}" class="px-8 py-3 bg-slate-700 hover:bg-slate-600 rounded-full font-bold transition duration-200">
+                        View All Users
+                    </a>
                     <a href="{{ route('users.create') }}" class="px-8 py-3 bg-blue-600 hover:bg-blue-500 rounded-full font-bold transition duration-200">
                         Add New User
                     </a>

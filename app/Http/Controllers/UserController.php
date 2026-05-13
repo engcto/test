@@ -9,6 +9,15 @@ use Illuminate\Support\Facades\Hash;
 class UserController extends Controller
 {
     /**
+     * Display a listing of the users.
+     */
+    public function index()
+    {
+        $users = User::latest()->get();
+        return view('users.index', compact('users'));
+    }
+
+    /**
      * Show the form for creating a new user.
      */
     public function create()
@@ -29,6 +38,6 @@ class UserController extends Controller
             'password' => Hash::make($validated['password']),
         ]);
 
-        return redirect('/')->with('success', 'User created successfully!');
+        return redirect()->route('users.index')->with('success', 'User created successfully!');
     }
 }
