@@ -11,36 +11,40 @@
         <div class="w-full max-w-md p-8 bg-slate-800 rounded-xl border border-slate-700 shadow-lg">
             <h2 class="text-3xl font-bold mb-6 text-center text-blue-400">Create New User</h2>
 
-            @if ($errors->any())
-                <div class="mb-4 p-4 bg-red-900/50 border border-red-500 text-red-200 rounded-lg text-sm">
-                    <ul class="list-disc list-inside">
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
-
             <form action="{{ route('users.store') }}" method="POST" class="space-y-4">
                 @csrf
+                
+                {{-- Name Field --}}
                 <div>
                     <label class="block text-sm font-medium text-slate-400">Name</label>
                     <input type="text" name="name" value="{{ old('name') }}" required
-                        class="w-full mt-1 px-4 py-2 bg-slate-700 border border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none text-white">
+                        class="w-full mt-1 px-4 py-2 bg-slate-700 border @error('name') border-red-500 @else border-slate-600 @enderror rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none text-white">
+                    @error('name')
+                        <p class="mt-1 text-xs text-red-400">{{ $message }}</p>
+                    @enderror
                 </div>
 
+                {{-- Email Field --}}
                 <div>
                     <label class="block text-sm font-medium text-slate-400">Email</label>
                     <input type="email" name="email" value="{{ old('email') }}" required
-                        class="w-full mt-1 px-4 py-2 bg-slate-700 border border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none text-white">
+                        class="w-full mt-1 px-4 py-2 bg-slate-700 border @error('email') border-red-500 @else border-slate-600 @enderror rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none text-white">
+                    @error('email')
+                        <p class="mt-1 text-xs text-red-400">{{ $message }}</p>
+                    @enderror
                 </div>
 
+                {{-- Password Field --}}
                 <div>
                     <label class="block text-sm font-medium text-slate-400">Password</label>
                     <input type="password" name="password" required
-                        class="w-full mt-1 px-4 py-2 bg-slate-700 border border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none text-white">
+                        class="w-full mt-1 px-4 py-2 bg-slate-700 border @error('password') border-red-500 @else border-slate-600 @enderror rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none text-white">
+                    @error('password')
+                        <p class="mt-1 text-xs text-red-400">{{ $message }}</p>
+                    @enderror
                 </div>
 
+                {{-- Confirm Password Field --}}
                 <div>
                     <label class="block text-sm font-medium text-slate-400">Confirm Password</label>
                     <input type="password" name="password_confirmation" required
