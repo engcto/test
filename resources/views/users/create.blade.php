@@ -4,78 +4,50 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Create User - Laravel</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
-<body class="bg-slate-900 text-white antialiased">
-    <div class="flex items-center justify-center min-h-screen">
-        <div class="w-full max-w-md p-8 bg-slate-800 rounded-xl border border-slate-700 shadow-lg">
-            <h2 class="text-3xl font-bold mb-6 text-center text-blue-400">Create New User</h2>
-
-            <form action="{{ route('users.store') }}" method="POST" class="space-y-4">
-                @csrf
-                
-                {{-- Name Field --}}
-                <div>
-                    <label class="block text-sm font-medium text-slate-400">Name</label>
-                    <input type="text" name="name" value="{{ old('name') }}" required
-                        class="w-full mt-1 px-4 py-2 bg-slate-700 border @error('name') border-red-500 @else border-slate-600 @enderror rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none text-white">
-                    @error('name')
-                        <p class="mt-1 text-xs text-red-400">{{ $message }}</p>
-                    @enderror
+<body class="bg-light">
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card shadow">
+                    <div class="card-header bg-primary text-white">
+                        <h4 class="mb-0">Create New User</h4>
+                    </div>
+                    <div class="card-body">
+                        <form action="{{ route('users.store') }}" method="POST">
+                            @csrf
+                            <div class="mb-3">
+                                <label class="form-label">Name</label>
+                                <input type="text" name="name" value="{{ old('name') }}" class="form-control @error('name') is-invalid @enderror" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Email</label>
+                                <input type="email" name="email" value="{{ old('email') }}" class="form-control @error('email') is-invalid @enderror" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Password</label>
+                                <input type="password" name="password" class="form-control @error('password') is-invalid @enderror" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Confirm Password</label>
+                                <input type="password" name="password_confirmation" class="form-control" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary w-100">Create User</button>
+                        </form>
+                        <div class="mt-3 text-center">
+                            <a href="/" class="text-decoration-none">← Back to Home</a>
+                        </div>
+                    </div>
                 </div>
-
-                {{-- Email Field --}}
-                <div>
-                    <label class="block text-sm font-medium text-slate-400">Email</label>
-                    <input type="email" name="email" value="{{ old('email') }}" required
-                        class="w-full mt-1 px-4 py-2 bg-slate-700 border @error('email') border-red-500 @else border-slate-600 @enderror rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none text-white">
-                    @error('email')
-                        <p class="mt-1 text-xs text-red-400">{{ $message }}</p>
-                    @enderror
-                </div>
-
-                {{-- Password Field --}}
-                <div>
-                    <label class="block text-sm font-medium text-slate-400">Password</label>
-                    <input type="password" name="password" required
-                        class="w-full mt-1 px-4 py-2 bg-slate-700 border @error('password') border-red-500 @else border-slate-600 @enderror rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none text-white">
-                    @error('password')
-                        <p class="mt-1 text-xs text-red-400">{{ $message }}</p>
-                    @enderror
-                </div>
-
-                {{-- Confirm Password Field --}}
-                <div>
-                    <label class="block text-sm font-medium text-slate-400">Confirm Password</label>
-                    <input type="password" name="password_confirmation" required
-                        class="w-full mt-1 px-4 py-2 bg-slate-700 border border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none text-white">
-                </div>
-
-                <div class="pt-4">
-                    <button type="submit" 
-                        class="w-full py-3 px-4 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-lg transition duration-200">
-                        Create User
-                    </button>
-                </div>
-            </form>
-            
-            <div class="mt-6 text-center">
-                <a href="/" class="text-sm text-slate-500 hover:text-slate-300">← Back to Home</a>
             </div>
         </div>
     </div>
 
     @if ($errors->any())
         <script>
-            Swal.fire({
-                icon: 'error',
-                title: 'Validation Error',
-                text: 'Please check the form for errors.',
-                background: '#1e293b',
-                color: '#fff',
-                confirmButtonColor: '#ef4444'
-            });
+            Swal.fire({ icon: 'error', title: 'Validation Error', text: 'Please check the form for errors.' });
         </script>
     @endif
 </body>
