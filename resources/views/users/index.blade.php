@@ -58,9 +58,18 @@
                                         {{ $user->is_active ? 'Deactivate' : 'Activate' }}
                                     </button>
                                 </form>
+                                
                                 <a href="{{ route('users.edit', $user) }}" class="text-blue-400 hover:text-blue-300 font-medium transition text-sm">
                                     Edit
                                 </a>
+
+                                <form action="{{ route('users.destroy', $user) }}" method="POST" class="inline" onsubmit="return confirm('Are you sure you want to delete this user?');">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="text-red-400 hover:text-red-300 font-medium transition text-sm">
+                                        Delete
+                                    </button>
+                                </form>
                             </td>
                         </tr>
                     @empty

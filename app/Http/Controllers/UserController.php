@@ -82,4 +82,14 @@ class UserController extends Controller
         $status = $user->is_active ? 'activated' : 'deactivated';
         return redirect()->route('users.index')->with('success', "User has been {$status} successfully.");
     }
+
+    /**
+     * Remove the specified user from storage.
+     */
+    public function destroy(User $user)
+    {
+        $user->delete();
+
+        return redirect()->route('users.index')->with('success', 'User deleted successfully!');
+    }
 }
