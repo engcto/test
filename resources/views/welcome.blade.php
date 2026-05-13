@@ -9,12 +9,26 @@
     <body class="bg-slate-900 text-white antialiased">
         <div class="relative flex items-center justify-center min-h-screen">
             <div class="max-w-4xl mx-auto p-6 text-center">
+                
+                @if (session('success'))
+                    <div class="mb-8 p-4 bg-emerald-900/50 border border-emerald-500 text-emerald-200 rounded-xl">
+                        {{ session('success') }}
+                    </div>
+                @endif
+
                 <h1 class="text-5xl font-extrabold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-emerald-400">
                     Laravel 11 Initialized
                 </h1>
                 <p class="text-xl text-slate-400 mb-8">
                     Repository: <span class="text-emerald-400 font-mono">engcto/test</span>
                 </p>
+
+                <div class="mb-12">
+                    <a href="{{ route('users.create') }}" class="px-8 py-3 bg-blue-600 hover:bg-blue-500 rounded-full font-bold transition duration-200">
+                        Add New User
+                    </a>
+                </div>
+
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-left">
                     <div class="p-6 bg-slate-800 rounded-xl border border-slate-700">
                         <h3 class="text-lg font-bold text-blue-400">Documentation</h3>
