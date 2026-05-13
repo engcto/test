@@ -31,6 +31,7 @@
                         <th class="px-6 py-4 text-sm font-semibold text-slate-300 uppercase tracking-wider">Name</th>
                         <th class="px-6 py-4 text-sm font-semibold text-slate-300 uppercase tracking-wider">Email</th>
                         <th class="px-6 py-4 text-sm font-semibold text-slate-300 uppercase tracking-wider">Joined</th>
+                        <th class="px-6 py-4 text-sm font-semibold text-slate-300 uppercase tracking-wider text-right">Actions</th>
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-slate-700">
@@ -41,10 +42,15 @@
                             <td class="px-6 py-4 text-slate-500 text-sm">
                                 {{ $user->created_at->format('M d, Y') }}
                             </td>
+                            <td class="px-6 py-4 text-right">
+                                <a href="{{ route('users.edit', $user) }}" class="text-blue-400 hover:text-blue-300 font-medium transition">
+                                    Edit
+                                </a>
+                            </td>
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="3" class="px-6 py-12 text-center text-slate-500 italic">
+                            <td colspan="4" class="px-6 py-12 text-center text-slate-500 italic">
                                 No users found in the database.
                             </td>
                         </tr>
