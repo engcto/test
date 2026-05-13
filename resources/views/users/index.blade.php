@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>User List - Laravel</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body class="bg-slate-900 text-white antialiased">
     <div class="max-w-6xl mx-auto p-8">
@@ -17,12 +18,6 @@
                 </a>
             </div>
         </div>
-
-        @if (session('success'))
-            <div class="mb-6 p-4 bg-emerald-900/50 border border-emerald-500 text-emerald-200 rounded-xl">
-                {{ session('success') }}
-            </div>
-        @endif
 
         <div class="bg-slate-800 rounded-xl border border-slate-700 overflow-hidden shadow-lg">
             <table class="w-full text-left border-collapse">
@@ -63,10 +58,10 @@
                                     Edit
                                 </a>
 
-                                <form action="{{ route('users.destroy', $user) }}" method="POST" class="inline" onsubmit="return confirm('Are you sure you want to delete this user?');">
+                                <form action="{{ route('users.destroy', $user) }}" method="POST" class="inline delete-form">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="text-red-400 hover:text-red-300 font-medium transition text-sm">
+                                    <button type="button" onclick="confirmDelete(this)" class="text-red-400 hover:text-red-300 font-medium transition text-sm">
                                         Delete
                                     </button>
                                 </form>
@@ -83,5 +78,38 @@
             </table>
         </div>
     </div>
+
+    <script>
+        function confirmDelete(button) {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "This user will be permanently deleted!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#ef4444',
+                cancelButtonColor: '#64748b',
+                confirmButtonText: 'Yes, delete it!',
+                background: '#1e293b',
+                color: '#fff'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    button.closest('form').submit();
+                }
+            })
+        }
+    </script>
+
+    @if (session('success'))
+        <script>
+            Swal.fire({
+                icon: 'success',
+                title: 'Success!',
+                text: "{{ session('success') }}",
+                background: '#1e293b',
+                color: '#fff',
+                confirmButtonColor: '#2563eb'
+            });
+        </script>
+    @endif
 </body>
 </html>

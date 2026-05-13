@@ -5,17 +5,12 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Laravel - engcto/test</title>
         <script src="https://cdn.tailwindcss.com"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     </head>
     <body class="bg-slate-900 text-white antialiased">
         <div class="relative flex items-center justify-center min-h-screen">
             <div class="max-w-4xl mx-auto p-6 text-center">
                 
-                @if (session('success'))
-                    <div class="mb-8 p-4 bg-emerald-900/50 border border-emerald-500 text-emerald-200 rounded-xl">
-                        {{ session('success') }}
-                    </div>
-                @endif
-
                 <h1 class="text-5xl font-extrabold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-emerald-400">
                     Laravel 11 Initialized
                 </h1>
@@ -48,5 +43,18 @@
                 </div>
             </div>
         </div>
+
+        @if (session('success'))
+            <script>
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Success!',
+                    text: "{{ session('success') }}",
+                    background: '#1e293b',
+                    color: '#fff',
+                    confirmButtonColor: '#2563eb'
+                });
+            </script>
+        @endif
     </body>
 </html>

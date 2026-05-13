@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Create User - Laravel</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body class="bg-slate-900 text-white antialiased">
     <div class="flex items-center justify-center min-h-screen">
@@ -64,5 +65,18 @@
             </div>
         </div>
     </div>
+
+    @if ($errors->any())
+        <script>
+            Swal.fire({
+                icon: 'error',
+                title: 'Validation Error',
+                text: 'Please check the form for errors.',
+                background: '#1e293b',
+                color: '#fff',
+                confirmButtonColor: '#ef4444'
+            });
+        </script>
+    @endif
 </body>
 </html>
